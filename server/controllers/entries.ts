@@ -29,8 +29,7 @@ export const setEntries = async(req = request, res = response) => {
     });
 };
 export const updateLastEntry = async(req = request, res = response) => {
-    const id = req. params;
-    console.log(id)
+    const id = req.params;
     const { title, description, ...rest } = req.body;
     const entry = await Entries.findOneAndUpdate( id , { title, description }, { new: true } ).exec();
 

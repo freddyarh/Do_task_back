@@ -46,19 +46,6 @@ const upload = multer({ storage: storage,
     },
 });
 
-router.post('/:id/:miremos', (req, res, next) => {
-
-    console.log("miremos")
-
-    const { name, lastName } = req.body;
-
-    res.status(200).json({
-        ok: true,
-        msj: 'Respuesta correcta',
-        name,
-        lastName
-    });
-});
 router.post('/entries', upload.single('image'), [
     check('title', 'The title is obligatory').not().isEmpty(),
     check('description', 'The description is obligatory').not().isEmpty(),
