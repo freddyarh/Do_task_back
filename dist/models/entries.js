@@ -6,7 +6,7 @@ const EntriesSchema = new mongoose_1.Schema({
     description: String,
     date: String,
     image: String,
-    ranking: Number,
+    rating: Number,
     user: String
 });
 const Entries = (0, mongoose_1.model)("Entries", EntriesSchema);

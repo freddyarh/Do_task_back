@@ -29,9 +29,9 @@ const storage = multer_1.default.diskStorage({
         cb(null, DIR);
     },
     filename: function (req, file, cb) {
-        console.log(req);
-        const [filename, extension] = file.originalname.split('.');
-        const uniqueSuffix = filename + "-" + Date.now() + '-' + Math.round(Math.random() * 1E9) + "." + extension;
+        const fileSplit = file.originalname.split('.');
+        const [filename] = file.originalname.split('.');
+        const uniqueSuffix = filename + "-" + Date.now() + '-' + Math.round(Math.random() * 1E9) + "." + fileSplit[fileSplit.length - 1];
         cb(null, uniqueSuffix);
     }
 });
@@ -41,22 +41,17 @@ const upload = (0, multer_1.default)({ storage: storage,
         checkFileType(file, cb);
     },
 });
-router.post('/:id/:miremos', (req, res, next) => {
-    const { name, lastName } = req.body;
-    console.log(req.params);
-    console.log('si', req.query);
-    res.status(200).json({
-        ok: true,
-        msj: 'Respuesta correcta',
-        name,
-        lastName
-    });
-});
 router.post('/entries', upload.single('image'), [
     (0, express_validator_1.check)('title', 'The title is obligatory').not().isEmpty(),
     (0, express_validator_1.check)('description', 'The description is obligatory').not().isEmpty(),
     validate_fields_1.validateFields
 ], entries_1.setEntries);
+router.put('/updateLastEntry/:id', [
+    (0, express_validator_1.check)('title', 'The title is obligatory').not().isEmpty(),
+    (0, express_validator_1.check)('description', 'The description is obligatory').not().isEmpty(),
+    validate_fields_1.validateFields
+], entries_1.updateLastEntry);
+router.get('/lastEntry', entries_1.getLastEntry);
 router.get('/entries', entries_1.getEntries);
 router.get('/entriesImageFile/:id', entries_1.getImageFileEntries);
 module.exports = router;

@@ -18,7 +18,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect('mongodb://localhost:27017/diary_note');
+        yield mongoose_1.default.connect('mongodb://localhost:27017/diary_app');
         console.log('Database online');
     }
     catch (error) {

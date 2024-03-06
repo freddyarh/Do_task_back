@@ -17,7 +17,6 @@ export const setEntries = async(req = request, res = response) => {
         image: file?.filename
     }
     
-    console.log('datas', data)
     const entries = new Entries(data);
                                          
     await entries.save();
@@ -54,7 +53,7 @@ export const getLastEntry = async(req = request, res = response) => {
 
 export const getEntries = async(req = request, res = response) => {
 
-    const entries = await Entries.find({})
+    const entries = await Entries.find({});
 
     res.json({
         ok: true,

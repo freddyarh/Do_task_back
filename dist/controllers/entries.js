@@ -8,11 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getImageFileEntries = exports.getEntries = exports.setEntriesImage = exports.setEntries = void 0;
+exports.getImageFileEntries = exports.getEntries = exports.getLastEntry = exports.updateLastEntry = exports.setEntries = void 0;
 const express_1 = require("express");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -30,9 +41,26 @@ const setEntries = (req = express_1.request, res = express_1.response) => __awai
     });
 });
 exports.setEntries = setEntries;
-const setEntriesImage = (req = express_1.request, res = express_1.response) => __awaiter(void 0, void 0, void 0, function* () {
+const updateLastEntry = (req = express_1.request, res = express_1.response) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params;
+    const _a = req.body, { title, description } = _a, rest = __rest(_a, ["title", "description"]);
+    const entry = yield entries_1.default.findOneAndUpdate(id, { title, description }, { new: true }).exec();
+    return res.json({
+        ok: true,
+        msj: "Successfull",
+        entry
+    });
 });
-exports.setEntriesImage = setEntriesImage;
+exports.updateLastEntry = updateLastEntry;
+const getLastEntry = (req = express_1.request, res = express_1.response) => __awaiter(void 0, void 0, void 0, function* () {
+    const lastEntry = yield entries_1.default.find().limit(1).sort({ $natural: -1 });
+    res.json({
+        ok: true,
+        msj: 'Access true',
+        lastEntry
+    });
+});
+exports.getLastEntry = getLastEntry;
 const getEntries = (req = express_1.request, res = express_1.response) => __awaiter(void 0, void 0, void 0, function* () {
     const entries = yield entries_1.default.find({});
     res.json({
