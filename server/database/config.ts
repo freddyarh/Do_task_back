@@ -6,7 +6,7 @@ export const dbConnection = async() => {
 
     try {
 
-        await mongoose.connect('mongodb+srv://user_node_disability:YoxQ7h6k2ZswBs35@disabilityappcluster.vd7ecej.mongodb.net/journal_back');
+        await mongoose.connect(process.env.MONGODB_PRO || '');
         console.log('Database online');
 
     } catch (error) {
