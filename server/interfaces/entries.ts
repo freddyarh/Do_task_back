@@ -1,6 +1,6 @@
-import { Date } from "mongoose";
+import { Date, Document } from "mongoose";
 
-export interface EntriesInterface {
+export interface EntriesInterface extends Document {
     title: String;
     description: String;
     image: String;

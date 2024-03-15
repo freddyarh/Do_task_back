@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { EntriesInterface } from "../interfaces/entries";
 
 const EntriesSchema = new Schema({
   title:  String, // String is shorthand for {type: String}
@@ -9,6 +10,6 @@ const EntriesSchema = new Schema({
   user: String
 });
 
-const Entries = model("Entries", EntriesSchema);
+const Entries = model<EntriesInterface>("Entries", EntriesSchema);
 
 export default Entries;

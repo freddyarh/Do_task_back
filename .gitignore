@@ -5,6 +5,7 @@
 /mongo
 /.pnp
 .pnp.js
+.env
 
 #Images from upload
 /uploads
@@ -16,7 +17,6 @@
 /build
 
 # misc
-.env
 .DS_Store
 .env.local
 .env.development.local

@@ -1,23 +1,40 @@
-version: '3'
+version: '3.1'
 
 services:
+    journal_back:
+      build: .
+      ports:
+        - 3000:3000
+      environment:
+        - MONGODB_CNN:mongodb://localhost:27017/journal
+      external_links:
+        - mongo
+        
     mongo:
       container_name: mongo
       image: mongo
       restart: always
+        - ./data:/data/db
       ports:
         - 27017:27017
+    
+    mongo-express:
+      container_name: mongo-express
+      image: mongo-express
+      ports:
+      - 8083:8081
+
       
-    webnode:
-      container_name: joournal_back
-      restart: always
-      build: .
-      ports: 
-          - "3000:3000"
-      # links:
-      #   - mongo
-      volumes:
-        - .:/usr/src/app
+    # webnode:
+    #   container_name: joournal_back
+    #   restart: always
+    #   build: .
+    #   ports: 
+    #       - "3000:3000"
+    #   # links:
+    #   #   - mongo
+    #   volumes:
+    #     - .:/usr/src/app
         
     # mongo:
     #   container_name: mongo

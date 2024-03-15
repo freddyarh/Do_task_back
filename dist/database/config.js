@@ -18,7 +18,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(process.env.MONGODB_PRO || '');
+        mongoose_1.default.set("strictQuery", false);
+        yield mongoose_1.default.connect('mongodb://mongo:27017/journal' || '');
         console.log('Database online');
     }
     catch (error) {

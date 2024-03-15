@@ -5,8 +5,8 @@ dotenv.config();
 export const dbConnection = async() => {
 
     try {
-
-        await mongoose.connect(process.env.MONGODB_PRO || '');
+        mongoose.set("strictQuery", false);
+        await mongoose.connect('mongodb://mongo:27017/journal' || '');
         console.log('Database online');
 
     } catch (error) {
