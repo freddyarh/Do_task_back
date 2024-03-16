@@ -6,7 +6,7 @@ export const dbConnection = async() => {
 
     try {
         mongoose.set("strictQuery", false);
-        await mongoose.connect('mongodb://mongo:27017/journal' || '');
+        await mongoose.connect(process.env.MONGODB_CNN || '');
         console.log('Database online');
 
     } catch (error) {
